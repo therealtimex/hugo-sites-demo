@@ -4,3 +4,6 @@
 [submodule ".data"]
 	path = .data
 	url = https://github.com/anhtai1907/hugo-sites-demo-data.git
+[submodule "content"]
+	path = content
+	url = https://github.com/anhtai1907/hugo-sites-demo-data.git
