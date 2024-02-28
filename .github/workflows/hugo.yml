@@ -59,21 +59,25 @@ jobs:
         run: |
           SITE_FOLDERS=$(find "$CONTENT_DIR" -mindepth 1 -maxdepth 1 -type d)
 
-          echo "BASE URL: ${{ steps.pages.outputs.base_url }}"
-
           for SITE in $SITE_FOLDERS; do
             SITE_DOMAIN=$(basename "$SITE")
             DEPLOY_CONFIG_FILE="$SITE/.deploy.yaml"
 
             if [ -f $DEPLOY_CONFIG_FILE ]; then
               THEME_ID=$(grep -oP '(?<=theme: ).*' "$DEPLOY_CONFIG_FILE" | tr -d '\r')
+              BASE_DOMAIN=$(grep -oP '(?<=baseURL: ).*' "$DEPLOY_CONFIG_FILE" | tr -d '\r' || echo "$SITE_DOMAIN")
+
+              echo "CONFIG DIR: $THEMES_DIR/$THEME_ID/config"
+              echo "CONTENT DIR: $SITE"
+              echo "DESTINATION: $PUBLISH_DIR/$BASE_DOMAIN/"
+
               hugo \
                 --gc \
                 --minify \
-                --configDir "$THEMES_DIR/$THEME_ID/config"
-                --contentDir "$SITE"
-                --destination "$PUBLISH_DIR/$SITE_DOMAIN/" \
-                --baseURL "${{ steps.pages.outputs.base_url }}/$SITE_DOMAIN/"
+                --configDir "$THEMES_DIR/$THEME_ID/config" \
+                --contentDir "$SITE" \
+                --destination "$PUBLISH_DIR/$BASE_DOMAIN/" \
+                --baseURL "${{ steps.pages.outputs.base_url }}/$BASE_DOMAIN/"
             fi
           done
       - name: Upload artifact
