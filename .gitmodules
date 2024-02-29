@@ -4,3 +4,6 @@
 [submodule "content"]
 	path = content
 	url = https://github.com/anhtai1907/hugo-sites-demo-data.git
+[submodule "themes/vex-hugo"]
+	path = themes/vex-hugo
+	url = https://github.com/anhtai1907/vex-hugo.git
