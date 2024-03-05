@@ -10,3 +10,6 @@
 	path = themes/vex-hugo
 	url = https://github.com/therealtimex/vex-hugo.git
 	branch = main
+[submodule "themes/hugo-theme-stack"]
+	path = themes/hugo-theme-stack
+	url = https://github.com/DangLjnh/hugo-theme-stack.git
